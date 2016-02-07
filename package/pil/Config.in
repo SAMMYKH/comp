@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PIL
+	bool "pil"
+    depends on BR2_PACKAGE_PYTHON
+	help
+	  Adds support for opening, manipulating, and saving
+	  different image file formats to Python.
+      
+	  http://www.pythonware.com/products/pil/

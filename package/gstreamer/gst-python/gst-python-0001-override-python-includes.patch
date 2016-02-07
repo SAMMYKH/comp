@@ -1,0 +1,20 @@
+diff --git a/configure.ac b/configure.ac
+index 235a187..40e88c3 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -83,7 +83,14 @@ then
+ else
+   AC_MSG_ERROR(too old)
+ fi
+-AM_CHECK_PYTHON_HEADERS(,[AC_MSG_ERROR(could not find Python headers)])
++# Checks for header files ---
++if test -n "$PYTHON_INCLUDES"; then
++  AC_MSG_CHECKING([for python include dir])
++  AC_MSG_RESULT([$PYTHON_INCLUDES])
++  AC_SUBST([PYTHON_INCLUDES])  
++else
++  AM_CHECK_PYTHON_HEADERS(,[AC_MSG_ERROR(could not find Python headers)])
++fi
+ 
+ dnl check for GStreamer
+ GST_MAJORMINOR=0.10

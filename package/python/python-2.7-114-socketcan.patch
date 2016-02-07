@@ -1,0 +1,186 @@
+diff --git a/Modules/socketmodule.c b/Modules/socketmodule.c
+index e4f6e63..4d715e1 100644
+--- a/Modules/socketmodule.c
++++ b/Modules/socketmodule.c
+@@ -1157,6 +1157,25 @@ makesockaddr(int sockfd, struct sockaddr *addr, int addrlen, int proto)
+     }
+ #endif
+ 
++#ifdef HAVE_LINUX_CAN_H
++       case AF_CAN:
++       {
++               struct sockaddr_can *a = (struct sockaddr_can *)addr;
++               char *ifname = "";
++               struct ifreq ifr;
++               /* need to look up interface name give index */
++               if (a->can_ifindex) {
++                       ifr.ifr_ifindex = a->can_ifindex;
++                       if (ioctl(sockfd, SIOCGIFNAME, &ifr) == 0)
++                               ifname = ifr.ifr_name;
++               }
++
++               return Py_BuildValue("sh",
++                                    ifname,
++                                    a->can_family);
++       }
++#endif
++
+     /* More cases here... */
+ 
+     default:
+@@ -1524,6 +1543,43 @@ getsockaddrarg(PySocketSockObject *s, PyObject *args,
+     }
+ #endif
+ 
++#ifdef HAVE_LINUX_CAN_H
++        case AF_CAN:
++               switch (s->sock_proto) {
++               case CAN_RAW:
++               {
++                       struct sockaddr_can* addr;
++                       char *interfaceName;
++                       struct ifreq ifr;
++                       addr = (struct sockaddr_can *)addr_ret;
++
++                       if (!PyArg_ParseTuple(args, "s", &interfaceName))
++                               return 0;
++
++                       if (!strcmp(interfaceName, "any")) {
++                               ifr.ifr_ifindex = 0;
++                       } else {
++                               strncpy(ifr.ifr_name, interfaceName,
++                                       sizeof(ifr.ifr_name));
++                               ifr.ifr_name[(sizeof(ifr.ifr_name))-1] = '\0';
++                               if (ioctl(s->sock_fd, SIOCGIFINDEX, &ifr) < 0) {
++                                       s->errorhandler();
++                                       return 0;
++                               }
++                       }
++
++                       addr->can_family = AF_CAN;
++                       addr->can_ifindex = ifr.ifr_ifindex;
++
++                       *len_ret = sizeof(*addr);
++                       return 1;
++               }
++               default:
++                       PyErr_SetString(socket_error, "getsockaddrarg: unsupported CAN protocol");
++                       return 0;
++        }
++#endif
++
+     /* More cases here... */
+ 
+     default:
+@@ -1617,6 +1673,14 @@ getsockaddrlen(PySocketSockObject *s, socklen_t *len_ret)
+     }
+ #endif
+ 
++#ifdef HAVE_LINUX_CAN_H
++       case AF_CAN:
++       {
++               *len_ret = sizeof (struct sockaddr_can);
++               return 1;
++       }
++#endif
++
+     /* More cases here... */
+ 
+     default:
+@@ -4677,6 +4741,14 @@ init_socket(void)
+     PyModule_AddStringConstant(m, "BDADDR_ANY", "00:00:00:00:00:00");
+     PyModule_AddStringConstant(m, "BDADDR_LOCAL", "00:00:00:FF:FF:FF");
+ #endif
++#ifdef AF_CAN
++       /* Controller Area Network */
++       PyModule_AddIntConstant(m, "AF_CAN", AF_CAN);
++#endif
++#ifdef PF_CAN
++       /* Controller Area Network */
++       PyModule_AddIntConstant(m, "PF_CAN", PF_CAN);
++#endif
+ 
+ #ifdef AF_PACKET
+     PyModule_AddIntMacro(m, AF_PACKET);
+@@ -4897,6 +4969,28 @@ init_socket(void)
+ #else
+     PyModule_AddIntConstant(m, "SOL_UDP", 17);
+ #endif
++#ifdef SOL_CAN_BASE
++       PyModule_AddIntConstant(m, "SOL_CAN_BASE", SOL_CAN_BASE);
++#endif
++#ifdef SOL_CAN_RAW
++       PyModule_AddIntConstant(m, "SOL_CAN_RAW", SOL_CAN_RAW);
++       PyModule_AddIntConstant(m, "CAN_RAW", CAN_RAW);
++#endif
++#ifdef HAVE_LINUX_CAN_H
++       PyModule_AddIntConstant(m, "CAN_EFF_FLAG", CAN_EFF_FLAG);
++       PyModule_AddIntConstant(m, "CAN_RTR_FLAG", CAN_RTR_FLAG);
++       PyModule_AddIntConstant(m, "CAN_ERR_FLAG", CAN_ERR_FLAG);
++
++       PyModule_AddIntConstant(m, "CAN_SFF_MASK", CAN_SFF_MASK);
++       PyModule_AddIntConstant(m, "CAN_EFF_MASK", CAN_EFF_MASK);
++       PyModule_AddIntConstant(m, "CAN_ERR_MASK", CAN_ERR_MASK);
++#endif
++#ifdef HAVE_LINUX_CAN_RAW_H
++       PyModule_AddIntConstant(m, "CAN_RAW_FILTER", CAN_RAW_FILTER);
++       PyModule_AddIntConstant(m, "CAN_RAW_ERR_FILTER", CAN_RAW_ERR_FILTER);
++       PyModule_AddIntConstant(m, "CAN_RAW_LOOPBACK", CAN_RAW_LOOPBACK);
++       PyModule_AddIntConstant(m, "CAN_RAW_RECV_OWN_MSGS", CAN_RAW_RECV_OWN_MSGS);
++#endif
+ #ifdef  IPPROTO_IP
+     PyModule_AddIntConstant(m, "IPPROTO_IP", IPPROTO_IP);
+ #else
+diff --git a/Modules/socketmodule.h b/Modules/socketmodule.h
+index 8515499..8932259 100644
+--- a/Modules/socketmodule.h
++++ b/Modules/socketmodule.h
+@@ -69,6 +69,20 @@ typedef int socklen_t;
+ # include <linux/tipc.h>
+ #endif
+ 
++#ifdef HAVE_LINUX_CAN_H
++#include <linux/can.h>
++#ifndef PF_CAN
++# define PF_CAN 29
++#endif
++#ifndef AF_CAN
++# define AF_CAN PF_CAN
++#endif
++#endif
++
++#ifdef HAVE_LINUX_CAN_RAW_H
++#include <linux/can/raw.h>
++#endif
++
+ #ifndef Py__SOCKET_H
+ #define Py__SOCKET_H
+ #ifdef __cplusplus
+@@ -115,6 +129,9 @@ typedef union sock_addr {
+ #ifdef HAVE_NETPACKET_PACKET_H
+     struct sockaddr_ll ll;
+ #endif
++#ifdef HAVE_LINUX_CAN_H
++       struct sockaddr_can* can;
++#endif
+ } sock_addr_t;
+ 
+ /* The object holding a socket.  It holds some extra information,
+diff --git a/configure.ac b/configure.ac
+index bf5ad52..29c1494 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1385,6 +1385,13 @@ AC_CHECK_HEADERS(linux/netlink.h,,,[
+ #endif
+ ])
+ 
++# On Linux, can.h and can/raw.h require sys/socket.h
++AC_CHECK_HEADERS(linux/can.h linux/can/raw.h,,,[
++#ifdef HAVE_SYS_SOCKET_H
++#include <sys/socket.h>
++#endif
++])
++
+ # checks for typedefs
+ was_it_defined=no
+ AC_MSG_CHECKING(for clock_t in time.h)

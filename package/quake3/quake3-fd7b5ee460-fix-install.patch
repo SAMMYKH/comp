@@ -1,0 +1,56 @@
+diff --git a/Makefile_ubuntu b/Makefile_ubuntu
+index 07ddcdb..26e1f80 100644
+--- a/Makefile_ubuntu
++++ b/Makefile_ubuntu
+@@ -217,7 +217,6 @@ endif
+ ## Defaults
+ LIB=lib
+ 
+-INSTALL=install
+ MKDIR=mkdir
+ 
+ ifeq ($(PLATFORM),linux)
+@@ -2107,34 +2106,34 @@ copyfiles: release
+ 	-$(MKDIR) -p -m 0755 $(COPYDIR)/missionpack
+ 
+ ifneq ($(BUILD_CLIENT),0)
+-	$(INSTALL) -s -m 0755 $(BR)/ioquake3.$(ARCH)$(BINEXT) $(COPYDIR)/ioquake3.$(ARCH)$(BINEXT)
++	$(INSTALL) -m 0755 $(BR)/ioquake3.$(ARCH)$(BINEXT) $(COPYDIR)/ioquake3.$(ARCH)$(BINEXT)
+ endif
+ 
+ # Don't copy the SMP until it's working together with SDL.
+ #ifneq ($(BUILD_CLIENT_SMP),0)
+-#	$(INSTALL) -s -m 0755 $(BR)/ioquake3-smp.$(ARCH)$(BINEXT) $(COPYDIR)/ioquake3-smp.$(ARCH)$(BINEXT)
++#	$(INSTALL) -m 0755 $(BR)/ioquake3-smp.$(ARCH)$(BINEXT) $(COPYDIR)/ioquake3-smp.$(ARCH)$(BINEXT)
+ #endif
+ 
+ ifneq ($(BUILD_SERVER),0)
+ 	@if [ -f $(BR)/ioq3ded.$(ARCH)$(BINEXT) ]; then \
+-		$(INSTALL) -s -m 0755 $(BR)/ioq3ded.$(ARCH)$(BINEXT) $(COPYDIR)/ioq3ded.$(ARCH)$(BINEXT); \
++		$(INSTALL) -m 0755 $(BR)/ioq3ded.$(ARCH)$(BINEXT) $(COPYDIR)/ioq3ded.$(ARCH)$(BINEXT); \
+ 	fi
+ endif
+ 
+ ifneq ($(BUILD_GAME_SO),0)
+-	$(INSTALL) -s -m 0755 $(BR)/baseq3/cgame$(ARCH).$(SHLIBEXT) \
++	$(INSTALL) -m 0755 $(BR)/baseq3/cgame$(ARCH).$(SHLIBEXT) \
+ 					$(COPYDIR)/baseq3/.
+-	$(INSTALL) -s -m 0755 $(BR)/baseq3/qagame$(ARCH).$(SHLIBEXT) \
++	$(INSTALL) -m 0755 $(BR)/baseq3/qagame$(ARCH).$(SHLIBEXT) \
+ 					$(COPYDIR)/baseq3/.
+-	$(INSTALL) -s -m 0755 $(BR)/baseq3/ui$(ARCH).$(SHLIBEXT) \
++	$(INSTALL) -m 0755 $(BR)/baseq3/ui$(ARCH).$(SHLIBEXT) \
+ 					$(COPYDIR)/baseq3/.
+   ifneq ($(BUILD_MISSIONPACK),0)
+ 	-$(MKDIR) -p -m 0755 $(COPYDIR)/missionpack
+-	$(INSTALL) -s -m 0755 $(BR)/missionpack/cgame$(ARCH).$(SHLIBEXT) \
++	$(INSTALL) -m 0755 $(BR)/missionpack/cgame$(ARCH).$(SHLIBEXT) \
+ 					$(COPYDIR)/missionpack/.
+-	$(INSTALL) -s -m 0755 $(BR)/missionpack/qagame$(ARCH).$(SHLIBEXT) \
++	$(INSTALL) -m 0755 $(BR)/missionpack/qagame$(ARCH).$(SHLIBEXT) \
+ 					$(COPYDIR)/missionpack/.
+-	$(INSTALL) -s -m 0755 $(BR)/missionpack/ui$(ARCH).$(SHLIBEXT) \
++	$(INSTALL) -m 0755 $(BR)/missionpack/ui$(ARCH).$(SHLIBEXT) \
+ 					$(COPYDIR)/missionpack/.
+   endif
+ endif

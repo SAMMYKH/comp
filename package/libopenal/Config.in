@@ -1,0 +1,8 @@
+config BR2_PACKAGE_LIBOPENAL
+	bool "libopenal"
+	help
+	  OpenAL is a cross-platform 3D audio API appropriate
+	  for use with gaming applications and many other types
+	  of audio applications
+
+	  http://connect.creativelabs.com/openal/default.aspx

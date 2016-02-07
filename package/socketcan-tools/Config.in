@@ -1,0 +1,6 @@
+config BR2_PACKAGE_SOCKETCAN_TOOLS
+	bool "socketcan-tools"
+	help
+	This package contains SocketCAN userspace tools.
+
+	http://developer.berlios.de/projects/socketcan/

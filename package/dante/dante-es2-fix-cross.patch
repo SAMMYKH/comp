@@ -1,0 +1,39 @@
+diff --git a/neo/idlib/containers/VectorSet.h b/neo/idlib/containers/VectorSet.h
+index 5205a3e..1f4c002 100644
+--- a/neo/idlib/containers/VectorSet.h
++++ b/neo/idlib/containers/VectorSet.h
+@@ -163,7 +163,7 @@ ID_INLINE int idVectorSet<type,dimension>::FindVector(const type &v, const float
+ 	}
+ 
+ 	hash.Add(hashKey, idList<type>::Num());
+-	Append(v);
++	this->Append(v);
+ 	return idList<type>::Num()-1;
+ }
+ 
+diff --git a/neo/sys/linux/gles2.cpp b/neo/sys/linux/gles2.cpp
+index 765d84b..84f2263 100644
+--- a/neo/sys/linux/gles2.cpp
++++ b/neo/sys/linux/gles2.cpp
+@@ -377,7 +377,7 @@ int GLX_Init(glimpParms_t a)
+ 		return false;
+ 	}
+ 
+-	visinfo = malloc(sizeof(XVisualInfo));
++	visinfo = (XVisualInfo*)malloc(sizeof(XVisualInfo));
+ 	if (!(XMatchVisualInfo(dpy, scrnum, glConfig.depthBits, TrueColor, visinfo))) {
+ 		common->Printf("Couldn't get a visual\n");
+ 		return false;
+diff --git a/neo/sys/linux/sound.cpp b/neo/sys/linux/sound.cpp
+index 4bfef3a..ce056c5 100644
+--- a/neo/sys/linux/sound.cpp
++++ b/neo/sys/linux/sound.cpp
+@@ -34,7 +34,7 @@ If you have questions concerning this license or the applicable additional terms
+ #include <sys/mman.h>
+ // OSS sound interface
+ // http://www.opensound.com/
+-#include <sys/soundcard.h>
++#include "oss/include/sys/soundcard.h"
+ 
+ #include "../../idlib/precompiled.h"
+ #include "../../sound/snd_local.h"

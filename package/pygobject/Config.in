@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYGOBJECT
+	bool "pygobject"
+    depends on BR2_PACKAGE_PYTHON
+    depends on BR2_PACKAGE_LIBGLIB2
+	help
+	  Adds Python gobject introspection bindings.
+      
+	  http://live.gnome.org/PyGObject

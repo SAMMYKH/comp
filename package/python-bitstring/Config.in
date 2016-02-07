@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYTHON_BITSTRING
+	bool "python-bitstring"
+	depends on BR2_PACKAGE_PYTHON
+	help
+	  python-bitstring is a Python library to give support for bitstrings.
+
+	  http://packages.python.org/bitstring
+

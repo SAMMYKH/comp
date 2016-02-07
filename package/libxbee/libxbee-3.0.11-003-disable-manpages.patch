@@ -1,0 +1,21 @@
+diff --git a/make/os.linux.mk b/make/os.linux.mk
+index 981bfe3..f0e05d8 100644
+--- a/make/os.linux.mk
++++ b/make/os.linux.mk
+@@ -35,7 +35,6 @@ INSTALL_FILES=         $(SYS_LIBDIR)/$(LIBNAME).so.$(LIBFULLREV)
+                        $(SYS_LIBDIR)/$(LIBNAME).so                                  \
+                        $(SYS_LIBDIR)/$(LIBNAME).a.$(LIBFULLREV)                     \
+                        $(SYS_LIBDIR)/$(LIBNAME).a                                   \
+-                       $(addprefix $(SYS_MANDIR)/,$(addsuffix .gz,$(SYS_MANPAGES))) \
+                        $(SYS_INCDIR)/xbee.h                                         \
+                        $(SYS_INCDIR)/xbeep.h
+ 
+@@ -43,8 +42,6 @@ RELEASE_FILES=         $(DESTDIR)/$(LIBNAME).so.$(LIBFULLREV)      \
+                        $(DESTDIR)/$(LIBNAME).so                    \
+                        $(DESTDIR)/$(LIBNAME).a.$(LIBFULLREV)       \
+                        $(DESTDIR)/$(LIBNAME).a                     \
+-                       $(addprefix $(MANDIR)/,$(SYS_MANPAGES))     \
+-                       $(addprefix $(HTMLDIR)/,$(SYS_HTMLPAGES))   \
+                        xbee.h                                      \
+                        xbeep.h                                     \
+                        README HISTORY COPYING COPYING.LESSER

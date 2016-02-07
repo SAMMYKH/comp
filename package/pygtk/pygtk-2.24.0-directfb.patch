@@ -1,0 +1,13 @@
+diff --git a/gtk/gdk.override b/gtk/gdk.override
+index d9db476..03197c1 100644
+--- a/gtk/gdk.override
++++ b/gtk/gdk.override
+@@ -105,6 +105,8 @@ ignore
+   gdk_region_destroy
+   gdk_atom_intern_static_string
+   gdk_pixbuf_from_pixdata
++  gdk_keyval_convert_case
++  gdk_keymap_have_bidi_layouts
+ %%
+ ignore-glob
+   *_get_type

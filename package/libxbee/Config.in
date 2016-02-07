@@ -1,0 +1,7 @@
+config BR2_PACKAGE_LIBXBEE
+	bool "libxbee"
+	help
+	  libxbee is a C/C++ library to aid the use
+	  of Digi XBee radios running in API mode.
+
+	  http://attie.co.uk/libxbee

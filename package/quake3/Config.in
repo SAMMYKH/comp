@@ -1,0 +1,13 @@
+config BR2_PACKAGE_QUAKE3
+	bool "quake3"
+	depends on BR2_PACKAGE_HAS_LIBEGL
+	depends on BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_LIBCURL
+	select BR2_PACKAGE_LIBOPENAL
+	select BR2_PACKAGE_JPEG
+	select BR2_PACKAGE_LIBVORBIS
+	help
+	  Quake 3 OPENGL ES2.0 port.
+
+	  https://github.com/raspberrypi/quake3
+

@@ -1,0 +1,12 @@
+config BR2_PACKAGE_PYTHON_PYMODBUS
+	bool "python-pymodbus"
+	depends on BR2_PACKAGE_PYTHON
+	select BR2_PACKAGE_PYTHON_PYASN
+	select BR2_PACKAGE_PYTHON_PYCRYPTO
+	select BR2_PACKAGE_PYTHON_TWISTED
+	select BR2_PACKAGE_PYTHON_ZOPE_INTERFACE
+	select BR2_PACKAGE_PYTHON_WSGIREF
+	help
+	  A full modbus protocol written in Python.
+
+	  https://github.com/bashwork/pymodbus

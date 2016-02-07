@@ -1,0 +1,45 @@
+--- ntp-dev.build/ntpd/refclock_shm.c.orig	2011-11-02 11:33:32.784311205 +0400
++++ ntp-dev.build/ntpd/refclock_shm.c	2011-11-02 12:51:21.276964865 +0400
+@@ -328,6 +328,7 @@
+ 		tvr.tv_usec = 0;
+ 		tvt.tv_sec = 0;
+ 		tvt.tv_usec = 0;
++		char timestr[20];	/* "%Y-%m-%dT%H:%M:%S" + 1 */
+ 		switch (shm->mode) {
+ 		    case 0: {
+ 			    tvr.tv_sec=shm->receiveTimeStampSec;
+@@ -348,16 +349,20 @@
+ 		    default:
+ 			msyslog (LOG_ERR, "SHM: bad mode found in shared memory: %d",shm->mode);
+ 		}
++
++		t = gmtime((const time_t *)&tvt.tv_sec);	/* XXX NetBSD has incompatible tv_sec */
++
++		/* add cv timecode in ISO 8601 format */
++		strftime(timestr, sizeof(timestr), "%Y-%m-%dT%H:%M:%S", t);
++		snprintf(pp->a_lastcode, sizeof(pp->a_lastcode), "%s.%06ldZ", timestr, (long)tvt.tv_usec);
++		pp->lencode = strlen(pp->a_lastcode);
++
+ 		shm->valid=0;
+ 		if (ok) {
+-			time_t help;	/* XXX NetBSD has incompatible tv_sec */
+-
+ 			TVTOTS(&tvr,&pp->lastrec);
+ 			pp->lastrec.l_ui += JAN_1970;
+ 			/* pp->lasttime = current_time; */
+ 			pp->polls++;
+-			help = tvt.tv_sec;
+-			t = gmtime (&help);
+ 			pp->day=t->tm_yday+1;
+ 			pp->hour=t->tm_hour;
+ 			pp->minute=t->tm_min;
+@@ -365,8 +370,7 @@
+ 			pp->nsec=tvt.tv_usec * 1000;
+ 			peer->precision=shm->precision;
+ 			pp->leap=shm->leap;
+-		} 
+-		else {
++		} else {
+ 			refclock_report(peer, CEVNT_FAULT);
+ 			msyslog (LOG_NOTICE, "SHM: access clash in shared memory");
+ 			up->clash++;

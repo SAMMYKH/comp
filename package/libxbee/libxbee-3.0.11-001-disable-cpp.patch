@@ -1,0 +1,38 @@
+diff --git a/make/os.linux.mk b/make/os.linux.mk
+index 169e4a7..8c492aa 100644
+--- a/make/os.linux.mk
++++ b/make/os.linux.mk
+@@ -30,9 +30,6 @@ CXXLINKS+=             $(CLINKS) -Llib -lxbee
+ LIB_OUT=               $(DESTDIR)/$(LIBNAME).so                    \
+                        $(DESTDIR)/$(LIBNAME).so.$(LIBFULLREV).dbg  \
+                        $(DESTDIR)/$(LIBNAME).a                     \
+-                       $(DESTDIR)/$(LIBNAME)p.so                   \
+-                       $(DESTDIR)/$(LIBNAME)p.so.$(LIBFULLREV).dbg \
+-                       $(DESTDIR)/$(LIBNAME)p.a                    \
+                        $(addprefix $(HTMLDIR)/,$(SYS_HTMLPAGES))
+ 
+ INSTALL_FILES=         $(SYS_LIBDIR)/$(LIBNAME).so.$(LIBFULLREV)                    \
+@@ -40,11 +37,6 @@ INSTALL_FILES=         $(SYS_LIBDIR)/$(LIBNAME).so.$(LIBFULLREV)
+                        $(SYS_LIBDIR)/$(LIBNAME).so                                  \
+                        $(SYS_LIBDIR)/$(LIBNAME).a.$(LIBFULLREV)                     \
+                        $(SYS_LIBDIR)/$(LIBNAME).a                                   \
+-                       $(SYS_LIBDIR)/$(LIBNAME)p.so.$(LIBFULLREV)                   \
+-                       $(SYS_LIBDIR)/$(LIBNAME)p.so.$(LIBFULLREV).dbg               \
+-                       $(SYS_LIBDIR)/$(LIBNAME)p.so                                 \
+-                       $(SYS_LIBDIR)/$(LIBNAME)p.a.$(LIBFULLREV)                    \
+-                       $(SYS_LIBDIR)/$(LIBNAME)p.a                                  \
+                        $(addprefix $(SYS_MANDIR)/,$(addsuffix .gz,$(SYS_MANPAGES))) \
+                        $(SYS_INCDIR)/xbee.h                                         \
+                        $(SYS_INCDIR)/xbeep.h
+@@ -54,11 +46,6 @@ RELEASE_FILES=         $(DESTDIR)/$(LIBNAME).so.$(LIBFULLREV)      \
+                        $(DESTDIR)/$(LIBNAME).so                    \
+                        $(DESTDIR)/$(LIBNAME).a.$(LIBFULLREV)       \
+                        $(DESTDIR)/$(LIBNAME).a                     \
+-                       $(DESTDIR)/$(LIBNAME)p.so.$(LIBFULLREV)     \
+-                       $(DESTDIR)/$(LIBNAME)p.so.$(LIBFULLREV).dbg \
+-                       $(DESTDIR)/$(LIBNAME)p.so                   \
+-                       $(DESTDIR)/$(LIBNAME)p.a.$(LIBFULLREV)      \
+-                       $(DESTDIR)/$(LIBNAME)p.a                    \
+                        $(addprefix $(MANDIR)/,$(SYS_MANPAGES))     \
+                        $(addprefix $(HTMLDIR)/,$(SYS_HTMLPAGES))   \
+                        xbee.h                                      \

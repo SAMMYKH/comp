@@ -1,0 +1,20 @@
+diff --git a/gdk/directfb/gdkproperty-directfb.c b/gdk/directfb/gdkproperty-directfb.c
+index 4e4bafb..08bd5c3 100644
+--- a/gdk/directfb/gdkproperty-directfb.c
++++ b/gdk/directfb/gdkproperty-directfb.c
+@@ -191,12 +191,12 @@ gchar *
+ gdk_atom_name (GdkAtom atom)
+ {
+   if (!atoms_to_names)
+-    return NULL;
++    ensure_atom_tables();
+ 
+-  if (GPOINTER_TO_INT (atom) >= atoms_to_names->len)
++  if (GPOINTER_TO_INT (atom)-1 >= atoms_to_names->len)
+     return NULL;
+ 
+-  return g_strdup (g_ptr_array_index (atoms_to_names, GPOINTER_TO_INT (atom)));
++  return g_strdup (g_ptr_array_index (atoms_to_names, GPOINTER_TO_INT (atom)-1));
+ }
+ 
+ 

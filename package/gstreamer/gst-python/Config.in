@@ -1,0 +1,9 @@
+config BR2_PACKAGE_GST_PYTHON
+	bool "gst-python"
+    depends on BR2_PACKAGE_PYTHON
+    depends on BR2_PACKAGE_GSTREAMER
+    depends on BR2_PACKAGE_PYGTK
+	help
+	  Adds Python GStreamer bindings.
+      
+	  http://gstreamer.freedesktop.org/modules/gst-python.html

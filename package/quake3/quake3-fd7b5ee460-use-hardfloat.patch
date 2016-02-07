@@ -1,0 +1,13 @@
+diff --git a/Makefile_ubuntu b/Makefile_ubuntu
+index 7862e74..07ddcdb 100644
+--- a/Makefile_ubuntu
++++ b/Makefile_ubuntu
+@@ -287,7 +287,7 @@ ifeq ($(PLATFORM),linux)
+     HAVE_VM_COMPILED=true
+   endif
+   ifeq ($(ARCH),arm)
+-    BASE_CFLAGS += -mfpu=vfp -mfloat-abi=softfp
++    BASE_CFLAGS += -ftree-vectorize -mfpu=neon -mfloat-abi=hard
+   endif
+   endif
+   endif

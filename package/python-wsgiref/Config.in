@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_WSGIREF
+	bool "python-wsgiref"
+	depends on BR2_PACKAGE_PYTHON
+	help
+	  WSGI (PEP 333) Reference Library.
+
+	  https://pypi.python.org/pypi/wsgiref

@@ -1,0 +1,38 @@
+config BR2_PACKAGE_PROFTPD
+	bool "proftpd"
+	depends on BR2_USE_MMU # fork()
+	help
+	  ProFTPD, a highly configurable FTP server.
+
+	  http://www.proftpd.org/
+	  
+	#
+	# Configuration selection
+	#
+
+	choice
+		prompt "ProFTPD configuration"
+		default BR2_PACKAGE_PROFTPD_USE_DEFAULT
+
+	config BR2_PACKAGE_PROFTPD_USE_DEFAULT
+		bool "Using default configuration"
+
+	config BR2_PACKAGE_PROFTPD_USE_CUSTOM_CONFIG
+		bool "Using a custom config file"
+
+	endchoice
+
+	config BR2_PACKAGE_PROFTPD_CUSTOM_CONFIG_FILE
+		string "Configuration file path"
+		depends on BR2_PACKAGE_PROFTPD_USE_CUSTOM_CONFIG
+		help
+		  Path to the proftpd configuration file
+
+if BR2_PACKAGE_PROFTPD
+
+config BR2_PACKAGE_PROFTPD_MOD_REWRITE
+	bool "mod_rewrite support"
+	help
+	  Compile ProFTPD with mod_rewrite support
+
+endif

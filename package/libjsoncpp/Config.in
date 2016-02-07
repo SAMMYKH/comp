@@ -1,0 +1,9 @@
+config BR2_PACKAGE_LIBJSONCPP
+	bool "libjsoncpp"
+	help
+	  A C++ JSON library.
+
+	  https://github.com/open-source-parsers/jsoncpp
+
+comment "libjsonrpc-cpp needs a toolchain w/ C++"
+	depends on !BR2_INSTALL_LIBSTDCPP

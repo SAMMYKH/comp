@@ -1,0 +1,19 @@
+diff --git a/make/os.linux.mk b/make/os.linux.mk
+index f0e05d8..0135f6f 100644
+--- a/make/os.linux.mk
++++ b/make/os.linux.mk
+@@ -33,14 +33,12 @@ LIB_OUT=               $(DESTDIR)/$(LIBNAME).so                    \
+ 
+ INSTALL_FILES=         $(SYS_LIBDIR)/$(LIBNAME).so.$(LIBFULLREV)                    \
+                        $(SYS_LIBDIR)/$(LIBNAME).so                                  \
+-                       $(SYS_LIBDIR)/$(LIBNAME).a.$(LIBFULLREV)                     \
+                        $(SYS_LIBDIR)/$(LIBNAME).a                                   \
+                        $(SYS_INCDIR)/xbee.h                                         \
+                        $(SYS_INCDIR)/xbeep.h
+ 
+ RELEASE_FILES=         $(DESTDIR)/$(LIBNAME).so.$(LIBFULLREV)      \
+                        $(DESTDIR)/$(LIBNAME).so                    \
+-                       $(DESTDIR)/$(LIBNAME).a.$(LIBFULLREV)       \
+                        $(DESTDIR)/$(LIBNAME).a                     \
+                        xbee.h                                      \
+                        xbeep.h                                     \

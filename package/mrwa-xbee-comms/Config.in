@@ -1,0 +1,8 @@
+config BR2_PACKAGE_MRWA_XBEE_COMMS
+	bool "mrwa-xbee-comms"
+	depends on BR2_PACKAGE_LIBXBEE && BR2_PACKAGE_SQLITE && BR2_PACKAGE_ZLIB && BR2_PACKAGE_OPENSSL
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	help
+	  mrwa-xbee-comms is an XBee comms daemon written in C.
+
+	  https://git.axent.com.au/mrwa/mrwa_xbee_comms

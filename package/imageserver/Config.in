@@ -1,0 +1,8 @@
+config BR2_PACKAGE_IMAGESERVER
+	bool "imageserver"
+	select BR2_PACKAGE_CAIRO
+	select BR2_PACKAGE_LIBMICROHTTPD
+	help
+	  Simple HTTP image upload server for displaying PNGs on a framebuffer.
+
+	  https://git.axent.com.au/ag14003/imageserver

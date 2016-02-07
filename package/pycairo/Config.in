@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYCAIRO
+	bool "pycairo"
+    depends on BR2_PACKAGE_PYTHON && BR2_PACKAGE_CAIRO
+	help
+	  Adds Python bindings for the Cairo graphics
+	  library.
+      
+	  http://cairographics.org/pycairo/

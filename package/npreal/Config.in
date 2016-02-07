@@ -1,0 +1,6 @@
+config BR2_PACKAGE_NPREAL
+	bool "npreal"
+	help
+	  Moxa real tty serial drivers.
+
+	  https://git.axent.com.au/ag13008/npreal

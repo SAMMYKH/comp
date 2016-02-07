@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYTHON_DATEUTIL
+	bool "python-dateutil"
+	depends on BR2_PACKAGE_PYTHON
+	help
+	  python-dateutil is a Python library which provides advanced
+	  date and time handling features.
+
+	  http://http://labix.org/python-dateutil

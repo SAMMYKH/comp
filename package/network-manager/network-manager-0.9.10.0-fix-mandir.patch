@@ -1,0 +1,144 @@
+diff --git a/man/Makefile.in b/man/Makefile.in
+index a48bf68..0e3ddb0 100644
+--- a/man/Makefile.in
++++ b/man/Makefile.in
+@@ -154,8 +154,8 @@ am__uninstall_files_from_dir = { \
+          $(am__cd) "$$dir" && rm -f $$files; }; \
+   }
+ man1dir = $(mandir)/man1
+-am__installdirs = "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(man5dir)" \
+-	"$(DESTDIR)$(man8dir)"
++am__installdirs = "$(man1dir)" "$(man5dir)" \
++	"$(man8dir)"
+ man5dir = $(mandir)/man5
+ man8dir = $(mandir)/man8
+ NROFF = nroff
+@@ -503,8 +503,8 @@ install-man1: $(man_MANS)
+ 	test -n "$(man1dir)" \
+ 	  && test -n "`echo $$list1$$list2`" \
+ 	  || exit 0; \
+-	echo " $(MKDIR_P) '$(DESTDIR)$(man1dir)'"; \
+-	$(MKDIR_P) "$(DESTDIR)$(man1dir)" || exit 1; \
++	echo " $(MKDIR_P) '$(man1dir)'"; \
++	$(MKDIR_P) "$(man1dir)" || exit 1; \
+ 	{ for i in $$list1; do echo "$$i"; done;  \
+ 	if test -n "$$list2"; then \
+ 	  for i in $$list2; do echo "$$i"; done \
+@@ -519,15 +519,15 @@ install-man1: $(man_MANS)
+ 	sed 'N;N;s,\n, ,g' | { \
+ 	list=; while read file base inst; do \
+ 	  if test "$$base" = "$$inst"; then list="$$list $$file"; else \
+-	    echo " $(INSTALL_DATA) '$$file' '$(DESTDIR)$(man1dir)/$$inst'"; \
+-	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(man1dir)/$$inst" || exit $$?; \
++	    echo " $(INSTALL_DATA) '$$file' '$(man1dir)/$$inst'"; \
++	    $(INSTALL_DATA) "$$file" "$(man1dir)/$$inst" || exit $$?; \
+ 	  fi; \
+ 	done; \
+ 	for i in $$list; do echo "$$i"; done | $(am__base_list) | \
+ 	while read files; do \
+ 	  test -z "$$files" || { \
+-	    echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(man1dir)'"; \
+-	    $(INSTALL_DATA) $$files "$(DESTDIR)$(man1dir)" || exit $$?; }; \
++	    echo " $(INSTALL_DATA) $$files '$(man1dir)'"; \
++	    $(INSTALL_DATA) $$files "$(man1dir)" || exit $$?; }; \
+ 	done; }
+ 
+ uninstall-man1:
+@@ -538,7 +538,7 @@ uninstall-man1:
+ 	  sed -n '/\.1[a-z]*$$/p'; \
+ 	} | sed -e 's,.*/,,;h;s,.*\.,,;s,^[^1][0-9a-z]*$$,1,;x' \
+ 	      -e 's,\.[0-9a-z]*$$,,;$(transform);G;s,\n,.,'`; \
+-	dir='$(DESTDIR)$(man1dir)'; $(am__uninstall_files_from_dir)
++	dir='$(man1dir)'; $(am__uninstall_files_from_dir)
+ install-man5: $(man_MANS)
+ 	@$(NORMAL_INSTALL)
+ 	@list1=''; \
+@@ -546,8 +546,8 @@ install-man5: $(man_MANS)
+ 	test -n "$(man5dir)" \
+ 	  && test -n "`echo $$list1$$list2`" \
+ 	  || exit 0; \
+-	echo " $(MKDIR_P) '$(DESTDIR)$(man5dir)'"; \
+-	$(MKDIR_P) "$(DESTDIR)$(man5dir)" || exit 1; \
++	echo " $(MKDIR_P) '$(man5dir)'"; \
++	$(MKDIR_P) "$(man5dir)" || exit 1; \
+ 	{ for i in $$list1; do echo "$$i"; done;  \
+ 	if test -n "$$list2"; then \
+ 	  for i in $$list2; do echo "$$i"; done \
+@@ -562,15 +562,15 @@ install-man5: $(man_MANS)
+ 	sed 'N;N;s,\n, ,g' | { \
+ 	list=; while read file base inst; do \
+ 	  if test "$$base" = "$$inst"; then list="$$list $$file"; else \
+-	    echo " $(INSTALL_DATA) '$$file' '$(DESTDIR)$(man5dir)/$$inst'"; \
+-	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(man5dir)/$$inst" || exit $$?; \
++	    echo " $(INSTALL_DATA) '$$file' '$(man5dir)/$$inst'"; \
++	    $(INSTALL_DATA) "$$file" "$(man5dir)/$$inst" || exit $$?; \
+ 	  fi; \
+ 	done; \
+ 	for i in $$list; do echo "$$i"; done | $(am__base_list) | \
+ 	while read files; do \
+ 	  test -z "$$files" || { \
+-	    echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(man5dir)'"; \
+-	    $(INSTALL_DATA) $$files "$(DESTDIR)$(man5dir)" || exit $$?; }; \
++	    echo " $(INSTALL_DATA) $$files '$(man5dir)'"; \
++	    $(INSTALL_DATA) $$files "$(man5dir)" || exit $$?; }; \
+ 	done; }
+ 
+ uninstall-man5:
+@@ -581,7 +581,7 @@ uninstall-man5:
+ 	  sed -n '/\.5[a-z]*$$/p'; \
+ 	} | sed -e 's,.*/,,;h;s,.*\.,,;s,^[^5][0-9a-z]*$$,5,;x' \
+ 	      -e 's,\.[0-9a-z]*$$,,;$(transform);G;s,\n,.,'`; \
+-	dir='$(DESTDIR)$(man5dir)'; $(am__uninstall_files_from_dir)
++	dir='$(man5dir)'; $(am__uninstall_files_from_dir)
+ install-man8: $(man_MANS)
+ 	@$(NORMAL_INSTALL)
+ 	@list1=''; \
+@@ -589,8 +589,8 @@ install-man8: $(man_MANS)
+ 	test -n "$(man8dir)" \
+ 	  && test -n "`echo $$list1$$list2`" \
+ 	  || exit 0; \
+-	echo " $(MKDIR_P) '$(DESTDIR)$(man8dir)'"; \
+-	$(MKDIR_P) "$(DESTDIR)$(man8dir)" || exit 1; \
++	echo " $(MKDIR_P) '$(man8dir)'"; \
++	$(MKDIR_P) "$(man8dir)" || exit 1; \
+ 	{ for i in $$list1; do echo "$$i"; done;  \
+ 	if test -n "$$list2"; then \
+ 	  for i in $$list2; do echo "$$i"; done \
+@@ -605,15 +605,15 @@ install-man8: $(man_MANS)
+ 	sed 'N;N;s,\n, ,g' | { \
+ 	list=; while read file base inst; do \
+ 	  if test "$$base" = "$$inst"; then list="$$list $$file"; else \
+-	    echo " $(INSTALL_DATA) '$$file' '$(DESTDIR)$(man8dir)/$$inst'"; \
+-	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(man8dir)/$$inst" || exit $$?; \
++	    echo " $(INSTALL_DATA) '$$file' '$(man8dir)/$$inst'"; \
++	    $(INSTALL_DATA) "$$file" "$(man8dir)/$$inst" || exit $$?; \
+ 	  fi; \
+ 	done; \
+ 	for i in $$list; do echo "$$i"; done | $(am__base_list) | \
+ 	while read files; do \
+ 	  test -z "$$files" || { \
+-	    echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(man8dir)'"; \
+-	    $(INSTALL_DATA) $$files "$(DESTDIR)$(man8dir)" || exit $$?; }; \
++	    echo " $(INSTALL_DATA) $$files '$(man8dir)'"; \
++	    $(INSTALL_DATA) $$files "$(man8dir)" || exit $$?; }; \
+ 	done; }
+ 
+ uninstall-man8:
+@@ -624,7 +624,7 @@ uninstall-man8:
+ 	  sed -n '/\.8[a-z]*$$/p'; \
+ 	} | sed -e 's,.*/,,;h;s,.*\.,,;s,^[^8][0-9a-z]*$$,8,;x' \
+ 	      -e 's,\.[0-9a-z]*$$,,;$(transform);G;s,\n,.,'`; \
+-	dir='$(DESTDIR)$(man8dir)'; $(am__uninstall_files_from_dir)
++	dir='$(man8dir)'; $(am__uninstall_files_from_dir)
+ tags TAGS:
+ 
+ ctags CTAGS:
+@@ -666,7 +666,7 @@ check-am: all-am
+ check: check-am
+ all-am: Makefile $(MANS)
+ installdirs:
+-	for dir in "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(man5dir)" "$(DESTDIR)$(man8dir)"; do \
++	for dir in "$(man1dir)" "$(man5dir)" "$(man8dir)"; do \
+ 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
+ 	done
+ install: install-am

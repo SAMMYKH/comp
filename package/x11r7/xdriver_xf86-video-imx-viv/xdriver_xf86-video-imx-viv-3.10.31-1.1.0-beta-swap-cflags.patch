@@ -1,0 +1,64 @@
+diff --git a/EXA/src/makefile.linux b/EXA/src/makefile.linux
+index 72f2978..f0ca784 100644
+--- a/EXA/src/makefile.linux
++++ b/EXA/src/makefile.linux
+@@ -62,7 +62,7 @@ LOCAL_LFLAGS += -L$(sysroot)/usr/lib -lm -ldl -lGAL -Wl,-soname -Wl,vivante_drv.
+ all: $(target)
+ 
+ $(target): $(OBJS)
+-	$(LD) -shared -fPIC -o $(target) $(OBJS) $(LOCAL_LFLAGS) $(LFLAGS)
++	$(LD) -shared -fPIC -o $(target) $(OBJS) $(LFLAGS) $(LOCAL_LFLAGS)
+ 
+ clean:
+ 	-@rm $(target) $(OBJS)
+@@ -72,5 +72,5 @@ install:
+ 	cp $(target) $(prefix)/lib/xorg/modules/drivers/
+ 
+ %.o: %.c
+-	$(CC) $(LOCAL_CFLAGS) $(CFLAGS) -o $@ -c $<
++	$(CC) $(CFLAGS) $(LOCAL_CFLAGS) -o $@ -c $<
+ 
+diff --git a/FslExt/src/makefile.linux b/FslExt/src/makefile.linux
+index c6fc929..1bf980d 100644
+--- a/FslExt/src/makefile.linux
++++ b/FslExt/src/makefile.linux
+@@ -35,7 +35,7 @@ LOCAL_LFLAGS += -L$(sysroot)/usr/lib -lGAL -lXext -lX11 -lc -Wl,-soname -Wl,libf
+ all: $(target)
+ 
+ $(target): $(OBJS)
+-	$(LD) -shared -fPIC -o $(target) $(OBJS) $(LOCAL_LFLAGS) $(LFLAGS)
++	$(LD) -shared -fPIC -o $(target) $(OBJS) $(LFLAGS) $(LOCAL_LFLAGS)
+ 
+ clean:
+ 	-@rm $(target) $(OBJS)
+@@ -45,5 +45,5 @@ install:
+ 	cp $(target) $(prefix)/lib/
+ 
+ %.o: %.c
+-	$(CC) $(LOCAL_CFLAGS) $(CFLAGS) -o $@ -c $<
++	$(CC) $(CFLAGS) $(LOCAL_CFLAGS) -o $@ -c $<
+ 
+diff --git a/util/autohdmi/makefile.linux b/util/autohdmi/makefile.linux
+index 6c48e86..6606139 100644
+--- a/util/autohdmi/makefile.linux
++++ b/util/autohdmi/makefile.linux
+@@ -36,7 +36,7 @@ LOCAL_LFLAGS += -L$(sysroot)/usr/lib -lX11 -lXext
+ all: $(target)
+ 
+ $(target): $(OBJS)
+-	$(LD) -fPIC -o $(target) $(OBJS) $(LOCAL_LFLAGS) $(LFLAGS)
++	$(LD) -fPIC -o $(target) $(OBJS) $(LFLAGS) $(LOCAL_LFLAGS)
+ 
+ clean:
+ 	-@rm $(target) $(OBJS)
+@@ -47,8 +47,8 @@ install:
+ 	chmod 700 $(prefix)/bin/${target}
+ 
+ %.o: %.cpp
+-	$(C++) $(LOCAL_CFLAGS) $(CFLAGS) -o $@ -c $<
++	$(C++) $(CFLAGS) $(LOCAL_CFLAGS) -o $@ -c $<
+ 
+ %.o: %.c
+-	$(CC) $(LOCAL_CFLAGS) $(CFLAGS) -o $@ -c $<
++	$(CC) $(CFLAGS) $(LOCAL_CFLAGS) -o $@ -c $<
+ 

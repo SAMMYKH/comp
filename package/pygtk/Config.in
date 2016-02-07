@@ -1,0 +1,10 @@
+config BR2_PACKAGE_PYGTK
+	bool "pygtk"
+	select BR2_PACKAGE_PYGOBJECT
+    depends on BR2_PACKAGE_PYTHON
+    depends on BR2_PACKAGE_LIBGLIB2
+    depends on BR2_PACKAGE_LIBGTK2
+	help
+	  Adds Python GTK2+ bindings.
+      
+	  http://live.gnome.org/PyGTK

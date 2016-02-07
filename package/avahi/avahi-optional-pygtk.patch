@@ -1,0 +1,32 @@
+diff --git a/configure b/configure
+index 5bc6a3a..e0c867e 100755
+--- a/configure
++++ b/configure
+@@ -27893,9 +27893,9 @@ if test "x$HAVE_XML" = "xyes" -a "x$HAVE_LIBDAEMON" = "xyes" ; then
+     BUILD_DAEMON=yes
+ fi
+ 
+-BUILD_PYTHON="no   (You need python, pygtk and python-dbus!)"
++BUILD_PYTHON="no   (You need python and python-dbus!)"
+ 
+-if test "x$BUILD_DAEMON" = "xyes" -a "x$HAVE_DBUS" = "xyes" -a "x$HAVE_PYTHON" = "xyes" -a "x$HAVE_PYTHON_DBUS" = "xyes" -a "x$HAVE_PYGTK" = "xyes" ; then
++if test "x$BUILD_DAEMON" = "xyes" -a "x$HAVE_DBUS" = "xyes" -a "x$HAVE_PYTHON" = "xyes" -a "x$HAVE_PYTHON_DBUS" = "xyes" ; then
+     BUILD_PYTHON=yes
+ fi
+ 
+diff --git a/configure.ac b/configure.ac
+index 0e190ba..336dfeb 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1177,9 +1177,9 @@ if test "x$HAVE_XML" = "xyes" -a "x$HAVE_LIBDAEMON" = "xyes" ; then
+     BUILD_DAEMON=yes
+ fi
+ 
+-BUILD_PYTHON="no   (You need python, pygtk and python-dbus!)"
++BUILD_PYTHON="no   (You need python and python-dbus!)"
+ 
+-if test "x$BUILD_DAEMON" = "xyes" -a "x$HAVE_DBUS" = "xyes" -a "x$HAVE_PYTHON" = "xyes" -a "x$HAVE_PYTHON_DBUS" = "xyes" -a "x$HAVE_PYGTK" = "xyes" ; then
++if test "x$BUILD_DAEMON" = "xyes" -a "x$HAVE_DBUS" = "xyes" -a "x$HAVE_PYTHON" = "xyes" -a "x$HAVE_PYTHON_DBUS" = "xyes" ; then
+     BUILD_PYTHON=yes
+ fi
+ 

@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_ZOPE_INTERFACE
+	bool "python-zope-interface"
+	depends on BR2_PACKAGE_PYTHON
+	help
+	  Interfaces for Python.
+
+	  https://pypi.python.org/pypi/zope.interface/4.1.0

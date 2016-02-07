@@ -1,0 +1,58 @@
+if LINUX
+#
+# Linux-only utils with no another dependencies. All another dependencies have
+# to be resolved in configure.ac end exported to makefiles by BUILD_*.
+#
+usrsbin_exec_PROGRAMS += ldattach
+dist_man_MANS += sys-utils/ldattach.8
+ldattach_SOURCES = sys-utils/ldattach.c
+ldattach_LDADD = $(LDADD) libcommon.la
+
+SETARCH_LINKS = linux32 linux64
+
+if ARCH_S390
+SETARCH_LINKS += s390 s390x
+endif
+if ARCH_I86
+SETARCH_LINKS += i386
+endif
+if ARCH_86_64
+SETARCH_LINKS += i386 x86_64
+endif
+if ARCH_PPC
+SETARCH_LINKS += ppc ppc64 ppc32
+endif
+if ARCH_SPARC
+SETARCH_LINKS += sparc sparc64 sparc32 sparc32bash
+endif
+if ARCH_MIPS
+SETARCH_LINKS += mips mips64 mips32
+endif
+if ARCH_IA64
+SETARCH_LINKS += i386 ia64
+endif
+if ARCH_HPPA
+SETARCH_LINKS += parisc parisc64 parisc32
+endif
+
+SETARCH_MAN_LINKS = $(addprefix sys-utils/,$(SETARCH_LINKS:=.8))
+man_MANS += $(SETARCH_MAN_LINKS)
+CLEANFILES += $(SETARCH_MAN_LINKS)
+
+$(SETARCH_MAN_LINKS):
+	$(AM_V_GEN)echo ".so man8/setarch.8" > $@
+
+install-exec-hook-setarch:
+	for I in $(SETARCH_LINKS); do \
+		cd $(DESTDIR)$(usrbin_execdir) && ln -sf setarch $$I ; \
+	done
+
+uninstall-hook-setarch:
+	for I in $(SETARCH_LINKS); do \
+		rm -f $(DESTDIR)$(usrbin_execdir)/$$I ; \
+	done
+
+INSTALL_EXEC_HOOKS += install-exec-hook-setarch
+UNINSTALL_HOOKS += uninstall-hook-setarch
+
+endif # LINUX
